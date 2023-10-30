@@ -1,12 +1,11 @@
+#include "random_number.h"
+
 #include <iostream>
-#include <cstdlib>
-#include <ctime>
 #include <fstream>
 
 int main() {
-	const int max_value = 100;
-	std::srand(std::time(nullptr));
-	const int target_value = std::rand() % max_value;
+	const int max_random_value = 100;
+	const int target_value = get_random_number(max_random_value); 
 	
 	int current_value = 0;
 	bool not_win = true;
@@ -22,10 +21,10 @@ int main() {
 		attempts++;
 		std::cin >> current_value;
 		if (current_value < target_value) {
-			std::cout << "less than " << current_value << std::endl;
+			std::cout << "your number " << current_value << " is less" << std::endl;
 		}
 		else if (current_value > target_value) {
-			std::cout << "greater than " << current_value << std::endl;
+			std::cout << "your number " << current_value << " is bigger" << std::endl;
 		}
 		else {
 			std::cout << "you win! attempts = " << attempts << std::endl;
@@ -48,7 +47,7 @@ int main() {
 
 	std::ifstream in_file(high_scores_filename);
 	if (!in_file.is_open()) {
-		std::cout << "Failed to open file for write: "
+		std::cout << "Failed to open file for read: "
 				<< high_scores_filename << '!' << std::endl;
 		return -1;
 	}

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 
 project(guess_the_number CXX)
 
-add_executable(a.out main.cpp)
+add_executable(a.out main.cpp random_number.cpp)
 
 target_compile_features(a.out PUBLIC cxx_std_17)
 
