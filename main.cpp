@@ -1,7 +1,7 @@
 #include "random_number.h"
+#include "high_scores.h"
 
 #include <iostream>
-#include <fstream>
 
 int main() {
 	const int max_random_value = 100;
@@ -33,34 +33,7 @@ int main() {
 	}
 	while (not_win);
 
-	const std::string high_scores_filename = "high_scores.txt";
-	std::ofstream out_file(high_scores_filename, std::ios_base::app);
-	if (!out_file.is_open()) {
-		std::cout << "Failed to open file for write: "
-				<< high_scores_filename << '!' << std::endl;
-		return -1;
-	}
-	out_file << username << ' ';
-	out_file << attempts;
-	out_file << std::endl;
-	out_file.close();
-
-	std::ifstream in_file(high_scores_filename);
-	if (!in_file.is_open()) {
-		std::cout << "Failed to open file for read: "
-				<< high_scores_filename << '!' << std::endl;
-		return -1;
-	}
-	std::cout << "\nHigh scores table:" << std::endl;
-	std::string user;
-	int value = 0;
-	while (true) {
-		in_file >> user;
-		in_file >> value;
-		in_file.ignore();
-		if (in_file.fail()) {
-			break;
-		}
-		std::cout << user << '\t' << value << std::endl;
-	}
+	const std::string hs_file = "high_scores.txt";
+	write_high_scores(hs_file, username, attempts);
+	read_high_scores(hs_file);
 }
